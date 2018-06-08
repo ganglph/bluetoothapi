@@ -22,10 +22,13 @@
             console.log('Requesting Bluetooth Device ...');
             navigator.bluetooth.requestDevice({ acceptAllDevices : true})
                 .then(device => {
-                    console.log('> Name:             ' + device.name);
-                    console.log('> Id:               ' + device.id);
+                    //console.log('> Name:             ' + device.name);
+                    //console.log('> Id:               ' + device.id);
+                    document.write('> Name:             ' + device.name);
+                    document.write('> Id:               ' + device.id);
                     device.gatt.connect();
-                    console.log('> Connected:        ' + device.gatt.connected);
+                    //console.log('> Connected:        ' + device.gatt.connected);
+                    document.write('> Connected:        ' + device.gatt.connected);
                 })
                 .catch(error => {document.write(error)});
         }
