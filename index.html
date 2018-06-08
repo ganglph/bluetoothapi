@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bluetooth API</title>
+    <script>
+        /*// Nach allen Bluetooth-Geräten scanne
+        let scan = navigator.bluetooth
+            .requestDevice({ acceptAllDevices : true})
+            .then(device => {
+                document.write(device.name);
+            })
+            .catch(error => {document.write(error)});*/
+    </script>
+</head>
+<body>
+    <button onclick="SearchBluetoothDevice()">search</button>
+    <script>
+        function SearchBluetoothDevice() {
+            console.log('Requesting Bluetooth Device ...');
+            navigator.bluetooth.requestDevice({ acceptAllDevices : true})
+                .then(device => {
+                    console.log('> Name:             ' + device.name);
+                    console.log('> Id:               ' + device.id);
+                    device.gatt.connect();
+                    console.log('> Connected:        ' + device.gatt.connected);
+                })
+                .catch(error => {document.write(error)});
+        }
+        function GetBatterieLevel() {
+            // Nach Bluetooth-Geräten scannen
+            navigator.bluetooth.requestDevice({ filters: [{ services: ['battery_service'] }] })
+                .then(device => device.gatt.connect())
+                .then(server => {
+                    // Getting Battery Service...
+                    return server.getPrimaryService('battery_service');
+                })
+                .then(service => {
+                    // Getting Battery Level Characteristic...
+                    return service.getCharacteristic('battery_level');
+                })
+                .then(characteristic => {
+                    // Reading Battery Level...
+                    return characteristic.readValue();  
+                })
+                .then(value => {
+                    document.write('Battery percentage is ' + value.getUint8(0));
+                })
+            .catch(error => { document.write(error); });
+        };
+    </script>
+</body>
+</html>
