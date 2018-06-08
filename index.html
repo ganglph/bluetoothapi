@@ -26,7 +26,7 @@
                     document.write("<br>");
                     document.write('> Id:               ' + device.id);
                     document.write("<br>");
-                    device.gatt.connect();
+                    return device.gatt.connect();
                     document.write('> Connected:        ' + device.gatt.connected);
                 })
                 .catch(error => {document.write(error)});
