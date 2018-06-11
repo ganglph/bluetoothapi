@@ -44,14 +44,24 @@
                     return service.getCharacteristic('battery_level');
                 })
                 .then(characteristic => {
+                    characteristic.addEventListener('characteristicvaluechanged', handleBatteryLevelChanged);
+                
                     // Reading Battery Level...
                     return characteristic.readValue();  
                 })
-                .then(value => {
-                    document.write('Battery percentage is ' + value.getUint8(0));
-                })
+                //.then(value => {
+                //    document.write('Battery percentage is ' + value.getUint8(0));
+                //})
             .catch(error => { document.write(error); });
+            
+            function handleBatteryLevelChanged(event){
+                let batteryLevel = event.target.value.getUnit8(0);
+                document.write('Battery percentage is ' + batteryLevel);
+            }
         };
+        function GetHeartRate() {
+            
+        }g
     </script>
 </body>
 </html>
