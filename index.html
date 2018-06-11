@@ -59,11 +59,11 @@
                 .then(service => service.getCharacteristic('heart_rate_measurement'))
                 .then(characteristic => {
                     characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
-                    return characteristic.readValue();
+                    //return characteristic.readValue();
                 })
             .catch(error => {document.write(error); });
 
-            function characteristicvaluechanged(event) {
+            function handleCharacteristicValueChanged(event) {
                 var value = event.target.value;
                 document.write('received ' + value);
             }
