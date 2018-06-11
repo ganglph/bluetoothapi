@@ -60,8 +60,21 @@
             }
         };
         function GetHeartRate() {
-            
-        }g
+            navigator.bluetooth.requestDevice({ filters: [{services: ['heart_rate'] }] })
+                .then(device => device.gatt.connect())
+                .then(server => server.getPrimaryService('heart_rate'))
+                .then(service => service.getCharacteristic('heart_rate_measurement'))
+                .then(characteristic => {
+                    characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+                    return characteristic.readValue();
+                })
+            .catch(error => {document.write(error); });
+
+            function characteristicvaluechanged(event) {
+                var value = event.target.value;
+                document.write('received ' + value);
+            }
+        }
     </script>
 </body>
 </html>
