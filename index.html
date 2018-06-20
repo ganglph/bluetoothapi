@@ -17,7 +17,6 @@
 </head>
 <body>
     <button onclick="GetBatterieLevel()">Get Batterylevel</button>
-    <button onclick="GetHeartRate()">Get HeartRate</button>
     <button onclick="SearchBluetoothDevice()">Get Bluetoothdevices</button>
     <script>
         function SearchBluetoothDevice() {
@@ -58,20 +57,6 @@
             /*function handleChange(event) {
                 let batterylevel = event.target.value.getUint8(0);
                 document.write('Battery percentage is' + batterylevel);
-            }*/
-        }
-        function GetHeartRate() {
-            navigator.bluetooth.requestDevice({ filters: [{services: ['heart_rate'] }] })
-                .then(device => device.gatt.connect())
-                .then(server => server.getPrimaryService('heart_rate'))
-                .then(service => service.getCharacteristic('heart_rate_measurement'))
-                .then(characteristic => characteristic.readValue())
-                .then(value => document.write('Heartrate: ' + value.getUint8(0)))
-            .catch(error => {document.write(error); });
-
-            /*function handleCharacteristicValueChanged(event) {
-                var value = event.target.value;
-                document.write('received ' + value);
             }*/
         }
     </script>
