@@ -45,7 +45,7 @@
                 })
                 .then(characteristic => {
                     // Set up event listener for when charateristic value changes.
-                    characteristic.addEventListener('characteristicvaluechanged', handleChange)
+                    characteristic.addEventListener('characteristicvaluechanged', handleChange);
                     // Reading Battery Level...
                     return characteristic.readValue();  
                 })
